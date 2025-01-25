@@ -1,3 +1,4 @@
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import * as Font from 'expo-font';
 import * as NavigationBar from 'expo-navigation-bar';
 import { Slot } from 'expo-router';
@@ -11,6 +12,7 @@ SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
   const [isAppReady, setIsAppReady] = useState(false);
+  const [queryClient] = useState(() => new QueryClient());
 
   const prepareApp = async (): Promise<void> => {
     await Font.loadAsync(fonts);
@@ -41,5 +43,9 @@ export default function RootLayout() {
     return null;
   }
 
-  return <Slot />;
+  return (
+    <QueryClientProvider client={queryClient}>
+      <Slot />
+    </QueryClientProvider>
+  );
 }

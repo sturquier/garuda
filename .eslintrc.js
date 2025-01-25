@@ -1,6 +1,10 @@
 module.exports = {
-  extends: ['expo', 'prettier'],
-  plugins: ['prettier', 'import'],
+  extends: [
+    'expo',
+    'prettier',
+    'plugin:@tanstack/eslint-plugin-query/recommended',
+  ],
+  plugins: ['prettier', 'import', '@tanstack/query'],
   ignorePatterns: ['/.expo/*', '/node_modules/', 'expo-env.d.ts'],
   rules: {
     '@typescript-eslint/no-empty-object-type': 'off',
