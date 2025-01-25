@@ -1,0 +1,2 @@
+echo "🔧 Testing Garuda files 🔧";
+npm run test:coverage
