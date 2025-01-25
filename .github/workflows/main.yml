@@ -1,0 +1,45 @@
+name: CI / CD
+on:
+  push:
+    branches:
+      - main
+jobs:
+  Linting:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Use Node.js
+        uses: actions/setup-node@v4
+      - name: Install dependencies
+        run: npm i
+      - name: Type check files
+        run: npm run type:check
+      - name: Lint files
+        run: npm run lint
+  Testing:
+    needs: Linting
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Use Node.js
+        uses: actions/setup-node@v4
+      - name: Install dependencies
+        run: npm i
+      - name: Run coverage tests
+        run: npm run test:coverage
+  Deployment:
+    needs: Testing
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup EAS
+        uses: expo/expo-github-action@v8
+        with:
+          eas-version: latest
+          token: ${{ secrets.EXPO_TOKEN }}
+      - name: Install dependencies
+        run: npm i
+      - name: Create EAS update
+        run: eas update --auto --non-interactive
+      - name: Create EAS build
+        run: eas build --non-interactive
