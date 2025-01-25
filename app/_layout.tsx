@@ -2,6 +2,7 @@ import * as Font from 'expo-font';
 import * as NavigationBar from 'expo-navigation-bar';
 import { Slot } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
+import * as StatusBar from 'expo-status-bar';
 import { useEffect, useState } from 'react';
 
 import { fonts } from '@/config/fonts';
@@ -13,6 +14,11 @@ export default function RootLayout() {
 
   const prepareApp = async (): Promise<void> => {
     await Font.loadAsync(fonts);
+
+    StatusBar.setStatusBarTranslucent(true);
+    StatusBar.setStatusBarBackgroundColor('transparent');
+    StatusBar.setStatusBarStyle('dark');
+
     await Promise.all([
       NavigationBar.setVisibilityAsync('hidden'),
       NavigationBar.setBehaviorAsync('overlay-swipe'),
