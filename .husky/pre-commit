@@ -1,0 +1,5 @@
+echo "🔧 TS checking Garuda files 🔧";
+npm run type-check
+
+echo "🔧 Linting Garuda files 🔧";
+npm run lint
