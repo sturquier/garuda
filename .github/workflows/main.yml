@@ -40,6 +40,6 @@ jobs:
       - name: Install dependencies
         run: npm i
       - name: Create EAS update
-        run: eas update --auto --non-interactive
+        run: eas update --auto --non-interactive --environment=development --platform=android
       - name: Create EAS build
-        run: eas build --non-interactive
+        run: eas build --non-interactive --profile=development --platform=android
