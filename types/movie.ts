@@ -3,7 +3,8 @@ export interface IMovie {
   title: string;
   overview: string;
   release_date: string;
-  genre_ids: string[];
+  poster_path: string;
+  genre_ids: number[];
 }
 
 export enum MOVIE_CATEGORY {
