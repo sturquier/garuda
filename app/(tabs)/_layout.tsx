@@ -25,7 +25,7 @@ export default function TabLayout() {
         options={{
           tabBarIcon: ({ focused }) => (
             <Ionicons
-              name='options-outline'
+              name='home-outline'
               color={iconColor(focused)}
               size={ICON_SIZE}
             />
@@ -33,11 +33,11 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
-        name='map'
+        name='search'
         options={{
           tabBarIcon: ({ focused }) => (
             <Ionicons
-              name='map-outline'
+              name='search-outline'
               color={iconColor(focused)}
               size={ICON_SIZE}
             />

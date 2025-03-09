@@ -1,9 +1,9 @@
 import { create } from 'zustand';
 
-import { GENRE_TYPE, IGenre } from '@/types/genre';
+import { GENRE_TYPE, TGenres } from '@/types/genre';
 
 interface IGenreState {
-  genres: Record<GENRE_TYPE, IGenre[]>;
+  genres: TGenres;
 }
 
 interface IGenreAction {

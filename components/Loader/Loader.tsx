@@ -1,10 +1,10 @@
-import { ActivityIndicator, StyleSheet, View } from 'react-native';
+import { ActivityIndicator, StyleSheet, View, ViewProps } from 'react-native';
 
 import { COLORS } from '@/theme/colors';
 
-export const Loader = () => {
+export const Loader = ({ ...props }: ViewProps) => {
   return (
-    <View style={styles.container}>
+    <View style={styles.container} {...props}>
       <ActivityIndicator color={COLORS.brown} size='large' />
     </View>
   );
