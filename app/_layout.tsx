@@ -8,6 +8,7 @@ import { useEffect, useState } from 'react';
 
 import { fonts } from '@/config/fonts';
 import { initI18n } from '@/config/i18n';
+import { MainLayout } from '@/layouts/MainLayout';
 
 SplashScreen.preventAutoHideAsync();
 
@@ -47,7 +48,9 @@ export default function RootLayout() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <Slot />
+      <MainLayout>
+        <Slot />
+      </MainLayout>
     </QueryClientProvider>
   );
 }
