@@ -1,15 +1,18 @@
 import { useState } from 'react';
-import { ScrollView, Text, View } from 'react-native';
+import { useTranslation } from 'react-i18next';
+import { ScrollView, View } from 'react-native';
 
 import { Card, Loader, Pager, Select } from '@/components';
 import { useFetchMovies } from '@/services/movies';
 import { useConfigurationStore } from '@/store/configuration';
 import { useGenreStore } from '@/store/genres';
 import { LAYOUT } from '@/theme/layout';
-import { TEXTS } from '@/theme/texts';
 import { MOVIE_CATEGORY } from '@/types/movie';
+import { getMovieCategoriesItems } from '@/utils/select';
 
 export default function HomeScreen() {
+  const { t } = useTranslation();
+
   const configuration = useConfigurationStore((state) => state.configuration);
   const genres = useGenreStore((state) => state.genres);
 
@@ -22,18 +25,16 @@ export default function HomeScreen() {
 
   return (
     <ScrollView contentContainerStyle={LAYOUT.pageContent}>
-      <Text style={TEXTS.title}>HOME</Text>
       {isFetchingMovies || !movies?.results.length ? (
         <Loader />
       ) : (
         <View style={LAYOUT.pageContent}>
           <Select
-            items={Object.values(MOVIE_CATEGORY).map((category) => ({
-              label: category.toString(),
-              value: category.toString(),
-            }))}
+            items={getMovieCategoriesItems(t)}
             selectedValue={category}
-            onValueChange={(newCategory): void => setCategory(newCategory)}
+            onValueChange={(newCategory): void =>
+              setCategory(newCategory as MOVIE_CATEGORY)
+            }
           />
           <Pager>
             {movies.results.map((movie) => (

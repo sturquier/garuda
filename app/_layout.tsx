@@ -7,6 +7,7 @@ import * as StatusBar from 'expo-status-bar';
 import { useEffect, useState } from 'react';
 
 import { fonts } from '@/config/fonts';
+import { initI18n } from '@/config/i18n';
 
 SplashScreen.preventAutoHideAsync();
 
@@ -15,6 +16,7 @@ export default function RootLayout() {
   const [queryClient] = useState(() => new QueryClient());
 
   const prepareApp = async (): Promise<void> => {
+    await initI18n();
     await Font.loadAsync(fonts);
 
     StatusBar.setStatusBarTranslucent(true);

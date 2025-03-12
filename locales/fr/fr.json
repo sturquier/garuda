@@ -1,0 +1,13 @@
+{
+  "routes": {
+    "index": "Accueil",
+    "search": "Recherche",
+    "profile": "Profile"
+  },
+  "movie_category": {
+    "now_playing": "Du moment",
+    "popular": "Populaires",
+    "top_rated": "Les mieux évalués",
+    "upcoming": "À venir"
+  }
+}

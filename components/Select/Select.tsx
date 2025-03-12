@@ -20,8 +20,8 @@ export const Select = ({
       onValueChange={onValueChange}
       {...props}
     >
-      {items.map((item) => (
-        <Picker.Item {...item} />
+      {items.map((item, index) => (
+        <Picker.Item key={index} {...item} />
       ))}
     </Picker>
   );

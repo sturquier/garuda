@@ -9,6 +9,11 @@ import { useGenreStore } from '@/store/genres';
 import { GENRE_TYPE } from '@/types/genre';
 
 export default function RootIndex() {
+  const setConfiguration = useConfigurationStore(
+    (state) => state.setConfiguration,
+  );
+  const setGenres = useGenreStore((state) => state.setGenres);
+
   const { data: configuration, isFetching: isFetchingConfiguration } =
     useFetchConfiguration();
   const { data: moviesGenres, isFetching: isFetchingMoviesGenres } =
@@ -16,11 +21,6 @@ export default function RootIndex() {
   const { data: tvGenres, isFetching: isFetchingTvGenres } = useFetchGenres(
     GENRE_TYPE.TV,
   );
-
-  const setConfiguration = useConfigurationStore(
-    (state) => state.setConfiguration,
-  );
-  const setGenres = useGenreStore((state) => state.setGenres);
 
   if (isFetchingConfiguration || isFetchingMoviesGenres || isFetchingTvGenres) {
     return <Loader />;

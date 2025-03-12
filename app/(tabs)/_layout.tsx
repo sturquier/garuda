@@ -3,6 +3,7 @@ import { Tabs } from 'expo-router';
 import React from 'react';
 import { ColorValue } from 'react-native';
 
+import { Header } from '@/components';
 import { COLORS } from '@/theme/colors';
 import { LAYOUT } from '@/theme/layout';
 
@@ -15,7 +16,7 @@ export default function TabLayout() {
   return (
     <Tabs
       screenOptions={{
-        headerShown: false,
+        header: (props) => <Header {...props} />,
         tabBarShowLabel: false,
         sceneStyle: LAYOUT.page,
       }}
