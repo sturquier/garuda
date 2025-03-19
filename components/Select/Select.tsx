@@ -16,6 +16,7 @@ export const Select = ({
 }: ISelect) => {
   return (
     <Picker
+      accessibilityLabel='Select picker'
       selectedValue={selectedValue}
       onValueChange={onValueChange}
       {...props}

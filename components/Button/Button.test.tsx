@@ -1,16 +1,30 @@
-import { render, screen } from '@testing-library/react-native';
-import { Text } from 'react-native';
+import { fireEvent, render } from '@testing-library/react-native';
+import { Text, TouchableOpacityProps } from 'react-native';
 
 import { Button } from './Button';
 
 describe('Button', () => {
-  test('it renders well', () => {
+  it('renders well', () => {
     const text = 'BUTTON';
     const children = <Text>{text}</Text>;
 
-    render(<Button>{children}</Button>);
+    const { getByRole, getByText } = render(<Button>{children}</Button>);
 
-    expect(screen.getByRole('button')).toBeDefined();
-    expect(screen.getByText(text)).toBeDefined();
+    expect(getByRole('button')).toBeDefined();
+    expect(getByText(text)).toBeDefined();
+  });
+
+  it('handles onPress()', () => {
+    const text = 'PRESSABLE BUTTON';
+    const children = <Text>{text}</Text>;
+
+    const props: TouchableOpacityProps = {
+      onPress: jest.fn(),
+    };
+
+    const { getByRole } = render(<Button {...props}>{children}</Button>);
+
+    fireEvent.press(getByRole('button'));
+    expect(props.onPress).toHaveBeenCalled();
   });
 });

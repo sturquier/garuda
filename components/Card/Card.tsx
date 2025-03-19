@@ -14,6 +14,7 @@ interface ICard {
   genres: TGenres;
 }
 
+// TODO : card for both movie & TV serie
 export const Card = ({ movie, configuration, genres }: ICard) => {
   return (
     <View style={styles.card}>

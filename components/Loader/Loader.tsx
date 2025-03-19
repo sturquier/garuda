@@ -5,7 +5,11 @@ import { COLORS } from '@/theme/colors';
 export const Loader = ({ ...props }: ViewProps) => {
   return (
     <View style={styles.container} {...props}>
-      <ActivityIndicator color={COLORS.brown} size='large' />
+      <ActivityIndicator
+        accessibilityLabel='Loader'
+        color={COLORS.brown}
+        size='large'
+      />
     </View>
   );
 };
