@@ -5,7 +5,7 @@ export const LAYOUT = StyleSheet.create({
     paddingHorizontal: 12,
     paddingVertical: 32,
   },
-  pageContent: {
+  flex: {
     flex: 1,
   },
 });

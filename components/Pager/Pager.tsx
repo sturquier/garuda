@@ -11,6 +11,6 @@ export const Pager = ({ children, ...props }: PagerViewProps) => {
 
 const styles = StyleSheet.create({
   pager: {
-    flex: 1,
+    height: 480,
   },
 });

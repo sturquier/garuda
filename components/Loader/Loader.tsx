@@ -1,6 +1,7 @@
 import { ActivityIndicator, StyleSheet, View, ViewProps } from 'react-native';
 
 import { COLORS } from '@/theme/colors';
+import { LAYOUT } from '@/theme/layout';
 
 export const Loader = ({ ...props }: ViewProps) => {
   return (
@@ -16,7 +17,7 @@ export const Loader = ({ ...props }: ViewProps) => {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    ...LAYOUT.flex,
     alignItems: 'center',
     justifyContent: 'center',
   },

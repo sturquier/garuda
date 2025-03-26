@@ -1,4 +1,5 @@
 import { Redirect } from 'expo-router';
+import { useTranslation } from 'react-i18next';
 
 import { Loader } from '@/components';
 import { APP_PATH } from '@/config/paths';
@@ -9,6 +10,10 @@ import { useGenreStore } from '@/store/genres';
 import { GENRE_TYPE } from '@/types/genre';
 
 export default function RootIndex() {
+  const {
+    i18n: { language },
+  } = useTranslation();
+
   const setConfiguration = useConfigurationStore(
     (state) => state.setConfiguration,
   );
@@ -17,9 +22,10 @@ export default function RootIndex() {
   const { data: configuration, isFetching: isFetchingConfiguration } =
     useFetchConfiguration();
   const { data: moviesGenres, isFetching: isFetchingMoviesGenres } =
-    useFetchGenres(GENRE_TYPE.MOVIE);
+    useFetchGenres(GENRE_TYPE.MOVIE, language);
   const { data: tvGenres, isFetching: isFetchingTvGenres } = useFetchGenres(
     GENRE_TYPE.TV,
+    language,
   );
 
   if (isFetchingConfiguration || isFetchingMoviesGenres || isFetchingTvGenres) {

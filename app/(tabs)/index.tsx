@@ -16,7 +16,10 @@ import {
 } from '@/utils/select';
 
 export default function HomeScreen() {
-  const { t } = useTranslation();
+  const {
+    t,
+    i18n: { language },
+  } = useTranslation();
 
   const configuration = useConfigurationStore((state) => state.configuration);
   const genres = useGenreStore((state) => state.genres);
@@ -28,30 +31,28 @@ export default function HomeScreen() {
     TV_SERIE_CATEGORY.ON_THE_AIR,
   );
 
-  const { data: movies, isFetching: isFetchingMovies } =
-    useFetchMovies(movieCategory);
-  const { data: tvSeries, isFetching: isFetchingTvSeries } =
-    useFetchTvSeries(tvSerieCategory);
+  const { data: movies, isFetching: isFetchingMovies } = useFetchMovies(
+    movieCategory,
+    language,
+  );
+  const { data: tvSeries, isFetching: isFetchingTvSeries } = useFetchTvSeries(
+    tvSerieCategory,
+    language,
+  );
 
   return (
-    <ScrollView
-      contentContainerStyle={LAYOUT.pageContent}
-      showsVerticalScrollIndicator={false}
-    >
-      {isFetchingMovies ||
-      isFetchingTvSeries ||
-      !movies?.results.length ||
-      !tvSeries?.results.length ? (
-        <Loader />
-      ) : (
-        <View style={LAYOUT.pageContent}>
-          <Select
-            items={getMovieCategoriesItems(t)}
-            selectedValue={movieCategory}
-            onValueChange={(newCategory): void =>
-              setMovieCategory(newCategory as MOVIE_CATEGORY)
-            }
-          />
+    <ScrollView style={LAYOUT.page} showsVerticalScrollIndicator={false}>
+      <View style={LAYOUT.flex}>
+        <Select
+          items={getMovieCategoriesItems(t)}
+          selectedValue={movieCategory}
+          onValueChange={(newCategory): void =>
+            setMovieCategory(newCategory as MOVIE_CATEGORY)
+          }
+        />
+        {isFetchingMovies || !movies.results.length ? (
+          <Loader />
+        ) : (
           <Pager>
             {movies.results.map((movie) => (
               <MovieCard
@@ -62,13 +63,17 @@ export default function HomeScreen() {
               />
             ))}
           </Pager>
-          <Select
-            items={getTvSerieCategoriesItems(t)}
-            selectedValue={tvSerieCategory}
-            onValueChange={(newCategory): void =>
-              setTvSerieCategory(newCategory as TV_SERIE_CATEGORY)
-            }
-          />
+        )}
+        <Select
+          items={getTvSerieCategoriesItems(t)}
+          selectedValue={tvSerieCategory}
+          onValueChange={(newCategory): void =>
+            setTvSerieCategory(newCategory as TV_SERIE_CATEGORY)
+          }
+        />
+        {isFetchingTvSeries || !tvSeries.results.length ? (
+          <Loader />
+        ) : (
           <Pager>
             {tvSeries.results.map((tvSerie) => (
               <TvSerieCard
@@ -79,8 +84,8 @@ export default function HomeScreen() {
               />
             ))}
           </Pager>
-        </View>
-      )}
+        )}
+      </View>
     </ScrollView>
   );
 }

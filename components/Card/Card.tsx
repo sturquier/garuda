@@ -75,8 +75,8 @@ const styles = StyleSheet.create({
     borderColor: COLORS.brown,
   },
   image: {
-    width: 200,
-    height: 200,
+    width: 120,
+    height: 120,
   },
   tags: {
     flexDirection: 'row',

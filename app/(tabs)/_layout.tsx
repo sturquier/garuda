@@ -5,7 +5,6 @@ import { ColorValue } from 'react-native';
 
 import { Header } from '@/components';
 import { COLORS } from '@/theme/colors';
-import { LAYOUT } from '@/theme/layout';
 
 export default function TabLayout() {
   const ICON_SIZE = 28;
@@ -18,7 +17,6 @@ export default function TabLayout() {
       screenOptions={{
         header: (props) => <Header {...props} />,
         tabBarShowLabel: false,
-        sceneStyle: LAYOUT.page,
       }}
     >
       <Tabs.Screen
