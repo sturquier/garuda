@@ -5,7 +5,6 @@
   "scripts": {
     "start": "expo start",
     "android": "expo start --android",
-    "web": "expo start --web",
     "test:coverage": "jest --coverage",
     "test:watch": "jest --watchAll",
     "type:check": "tsc --noEmit --pretty false --skipLibCheck",

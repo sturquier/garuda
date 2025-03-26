@@ -2,13 +2,18 @@ import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { ScrollView, View } from 'react-native';
 
-import { Card, Loader, Pager, Select } from '@/components';
+import { Loader, MovieCard, Pager, Select, TvSerieCard } from '@/components';
 import { useFetchMovies } from '@/services/movies';
+import { useFetchTvSeries } from '@/services/tvSeries';
 import { useConfigurationStore } from '@/store/configuration';
 import { useGenreStore } from '@/store/genres';
 import { LAYOUT } from '@/theme/layout';
 import { MOVIE_CATEGORY } from '@/types/movie';
-import { getMovieCategoriesItems } from '@/utils/select';
+import { TV_SERIE_CATEGORY } from '@/types/tvSerie';
+import {
+  getMovieCategoriesItems,
+  getTvSerieCategoriesItems,
+} from '@/utils/select';
 
 export default function HomeScreen() {
   const { t } = useTranslation();
@@ -16,31 +21,59 @@ export default function HomeScreen() {
   const configuration = useConfigurationStore((state) => state.configuration);
   const genres = useGenreStore((state) => state.genres);
 
-  const [category, setCategory] = useState<MOVIE_CATEGORY>(
+  const [movieCategory, setMovieCategory] = useState<MOVIE_CATEGORY>(
     MOVIE_CATEGORY.UPCOMING,
+  );
+  const [tvSerieCategory, setTvSerieCategory] = useState<TV_SERIE_CATEGORY>(
+    TV_SERIE_CATEGORY.ON_THE_AIR,
   );
 
   const { data: movies, isFetching: isFetchingMovies } =
-    useFetchMovies(category);
+    useFetchMovies(movieCategory);
+  const { data: tvSeries, isFetching: isFetchingTvSeries } =
+    useFetchTvSeries(tvSerieCategory);
 
   return (
-    <ScrollView contentContainerStyle={LAYOUT.pageContent}>
-      {isFetchingMovies || !movies?.results.length ? (
+    <ScrollView
+      contentContainerStyle={LAYOUT.pageContent}
+      showsVerticalScrollIndicator={false}
+    >
+      {isFetchingMovies ||
+      isFetchingTvSeries ||
+      !movies?.results.length ||
+      !tvSeries?.results.length ? (
         <Loader />
       ) : (
         <View style={LAYOUT.pageContent}>
           <Select
             items={getMovieCategoriesItems(t)}
-            selectedValue={category}
+            selectedValue={movieCategory}
             onValueChange={(newCategory): void =>
-              setCategory(newCategory as MOVIE_CATEGORY)
+              setMovieCategory(newCategory as MOVIE_CATEGORY)
             }
           />
           <Pager>
             {movies.results.map((movie) => (
-              <Card
+              <MovieCard
                 key={movie.id}
                 movie={movie}
+                configuration={configuration}
+                genres={genres}
+              />
+            ))}
+          </Pager>
+          <Select
+            items={getTvSerieCategoriesItems(t)}
+            selectedValue={tvSerieCategory}
+            onValueChange={(newCategory): void =>
+              setTvSerieCategory(newCategory as TV_SERIE_CATEGORY)
+            }
+          />
+          <Pager>
+            {tvSeries.results.map((tvSerie) => (
+              <TvSerieCard
+                key={tvSerie.id}
+                tvSerie={tvSerie}
                 configuration={configuration}
                 genres={genres}
               />

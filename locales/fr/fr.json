@@ -9,5 +9,11 @@
     "popular": "Populaires",
     "top_rated": "Les mieux évalués",
     "upcoming": "À venir"
+  },
+  "tv_serie_category": {
+    "airing_today": "Diffusées aujourd'hui",
+    "on_the_air": "En cours de diffusion",
+    "popular": "Populaires",
+    "top_rated": "Les mieux évalués"
   }
 }
